@@ -12,7 +12,7 @@ import {ApiService} from "../../../../services/apiServices";
 export default function Step5(props) {
   useEffect(() => {
     setTimeout(function() {
-      props.setStep(6);
+      props.setStep(5);
     }, 5000);
   })
   return (
@@ -20,10 +20,10 @@ export default function Step5(props) {
     >
       <div style={{textAlign: 'left'}}>
         <H2>
-          {props.storefront} account
+        {process.env.REACT_APP_CHANNEL_PLATFORM_NAME} account
         </H2>
         <h4 style={{color: 'gray', marginTop: '-10px'}}>
-          Connect your {props.storefront} account with BigCommerce to complete setting up this channel.
+          Connect your {process.env.REACT_APP_CHANNEL_PLATFORM_NAME} account with BigCommerce to complete setting up this channel.
         </h4>
         <ProgressCircle size="small" />
       </div>

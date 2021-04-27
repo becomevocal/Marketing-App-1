@@ -17,14 +17,14 @@ export default function Step3(props) {
     >
       <div style={{textAlign: 'left'}}>
         <H2>
-          {props.storefront} account
+        {process.env.REACT_APP_CHANNEL_PLATFORM_NAME} account
         </H2>
         <h4 style={{color: 'gray', marginTop: '-10px'}}>
-          Connect your {props.storefront} account with BigCommerce to complete setting up this channel.
+          Connect your {process.env.REACT_APP_CHANNEL_PLATFORM_NAME} account with BigCommerce to complete setting up this channel.
         </h4>
 
-        <Button onClick={() => props.setStep(4)} actionType="normal" isLoading={false} variant="primary">
-          Connect with with {props.storefront}
+        <Button onClick={() => props.setStep(3)} actionType="normal" isLoading={false} variant="primary">
+          Connect with with {process.env.REACT_APP_CHANNEL_PLATFORM_NAME}
         </Button>
 
       </div>

@@ -35,7 +35,7 @@ export default function configurePage(props) {
       <H2>Configure to Channel {props.currentProfitName}</H2>
 
       <GoogleLogin
-        clientId="1090849701177-kq5gufe0g2vssa71lu9jkg1tid11k6ib.apps.googleusercontent.com"
+        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
         render={renderProps => (
           <button onClick={renderProps.onClick} disabled={renderProps.disabled}>This is my custom Google button</button>
         )}

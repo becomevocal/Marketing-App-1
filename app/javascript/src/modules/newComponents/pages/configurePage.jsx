@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react'
 
-import { H1, H2, Button, Flex, Box, Text} from '@bigcommerce/big-design';
+import { H1, H2, Button, Flex, Box, Text, Stepper, Form } from '@bigcommerce/big-design';
 import { Footer } from "../createSettings/styled";
-import Steps from "../steps";
 import ConfigurationSteps from "./steps/ConfigurationSteps";
 import {alertsManager} from "../../../app";
 import {ApiService} from '../../../services/apiServices';
@@ -10,7 +9,8 @@ import Loader from "../../components/common/Loader";
 import idx from "idx";
 
 export default function configurePage(props) {
-  const [step, setStep] = useState(1);
+  const steps = ['Storefront Selection', 'Requirements', 'Connection'];
+  const [currentStep, setCurrentStep] = useState(0);
   const [storefront, setStorefront] = useState('');
   const [storeInfo, setStoreInfo] = useState({});
   const [storefrontOptions, setStorefrontOptions] = useState({});
@@ -21,8 +21,8 @@ export default function configurePage(props) {
   }
 
   function increaseStep() {
-    if (step < 15) {
-      setStep(step + 1);
+    if (currentStep < 15) {
+      setCurrentStep(currentStep + 1);
     }
   }
 
@@ -43,14 +43,14 @@ export default function configurePage(props) {
 
 
   function decreaseStep() {
-    if (step > 1) setStep(step - 1);
+    if (currentStep > 1) setCurrentStep(currentStep - 1);
   }
   useEffect(() =>{
-    if(step >1 && storefront === ''){
-      setStep(1);
+    if(currentStep >1 && storefront === ''){
+      setCurrentStep(1);
       AddAlert('Error', 'Please select a store first!', 'error')
     }
-  }, [step])
+  }, [currentStep])
 
   useEffect(() =>{
     ApiService.getChannelsDetails({store_id: props.currentStore})
@@ -69,45 +69,44 @@ export default function configurePage(props) {
       <Loader/>
       }
       {!loading &&
-      <Flex flexDirection="column" marginTop="medium">
-        <div>
+        <>
 
-          <div style={{marginLeft: '50px'}}>
-            <>
-              { step < 8 &&
-              <>
-                <h1 style={{color: 'gray',
-                  fontSize: '1.5rem',
-                  fontWeight: 400,
-                  lineHeight: '2rem'}}>
-                  Set up { storefront || '<Channel name>'} channel
-                </h1>
-                <Steps step={step}></Steps>
-              </>
-              }
-            </>
-            <ConfigurationSteps
-              step={step}
-              setStep={setStep}
-              storeInfo={props.storeInfo}
-              storefront={storefront}
-              setStorefront={setStorefront}
-              AddAlert={AddAlert}
-              storefrontOptions={storefrontOptions}
-              setStorefrontOptions={setStorefrontOptions}
-              currentStore={props.currentStore}
-            />
-          </div>
-        </div>
-
-        <Footer>
           <Box>
-            <Button variant="primary" onClick={increaseStep}>
-              Continue
-            </Button>
+            
+            { currentStep < 8 &&
+            <>
+              <H1>
+                Set up {process.env.REACT_APP_CHANNEL_PLATFORM_NAME}
+              </H1>
+              <Stepper steps={steps} currentStep={currentStep} />
+            </>
+            }
+            
+            <Form>  
+              <ConfigurationSteps
+                step={currentStep}
+                setStep={setCurrentStep}
+                storeInfo={props.storeInfo}
+                storefront={storefront}
+                setStorefront={setStorefront}
+                AddAlert={AddAlert}
+                storefrontOptions={storefrontOptions}
+                setStorefrontOptions={setStorefrontOptions}
+                currentStore={props.currentStore}
+              />
+            </Form>
           </Box>
-        </Footer>
-      </Flex>
+        
+
+          <Footer>
+            <Box>
+              <Button variant="primary" onClick={increaseStep}>
+                Continue
+              </Button>
+            </Box>
+          </Footer>
+        </>
+      
       }
     </>
   )

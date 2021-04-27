@@ -15,7 +15,8 @@ import GoogleButton from 'react-google-button'
 export default function Step4(props) {
   const handleChange = (val) => props.setStorefront(val);
   const responseGoogle = (response) => {
-    props.setStep(5);
+    debugger;
+    props.setStep(4);
   }
 
   return (
@@ -23,11 +24,11 @@ export default function Step4(props) {
     >
       <div style={{textAlign: 'left'}}>
         <H2>
-          Authenticate with Google account
+          Authenticate with {process.env.REACT_APP_CHANNEL_PLATFORM_NAME}
         </H2>
 
         <GoogleLogin
-          clientId="1090849701177-kq5gufe0g2vssa71lu9jkg1tid11k6ib.apps.googleusercontent.com"
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
           render={renderProps => (
             <GoogleButton onClick={renderProps.onClick} disabled={renderProps.disabled}>Sign in with Google</GoogleButton>
           )}
@@ -35,6 +36,7 @@ export default function Step4(props) {
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
           cookiePolicy={'single_host_origin'}
+          scope="profile email https://www.googleapis.com/auth/content"
         />
 
       </div>

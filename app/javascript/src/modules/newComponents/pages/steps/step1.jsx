@@ -20,29 +20,19 @@ export default function Step1(props) {
   }
 
   return (
-    <Panel
-    >
-      <div style={{textAlign: 'left'}}>
-        <H2>
-          Storefront
-        </H2>
-        <h3>Select Storefront to sync with</h3>
-        <h3 style={{color: 'gray'}}>Products from this storefront will be used in the channel</h3>
-      </div>
-
-      <Form>
-        <FormGroup>
-          <Select
-            maxHeight={350}
-            onOptionChange={() => null}
-            onOptionChange={handleChange}
-            options={options}
-            value={props.storefront}
-            placeholder="Select Storefront"
-            required
-          />
-        </FormGroup>
-      </Form>
+    <Panel header="Storefront">
+      <FormGroup>
+        <Select
+          label="Select Storefront to sync with"
+          description="Products from this storefront will be used in the channel"
+          onOptionChange={handleChange}
+          options={options}
+          value={props.storefront}
+          placeholder="Select Storefront"
+          maxHeight={350}
+          required
+        />
+      </FormGroup>
     </Panel>
   );
 }

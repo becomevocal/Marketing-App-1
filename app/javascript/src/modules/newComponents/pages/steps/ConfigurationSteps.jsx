@@ -13,53 +13,52 @@ export default function ConfigurationSteps(props) {
   const [ dataSetId, setDataSetId ] = useState('');
 
   return (
-    <div style={{width: '60%', marginTop: '50px', marginBottom: '100px'}}>
-      { props.step == 1 &&
+    <>
+      { props.step == 0 &&
       <Step1 step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}
              storefront={props.storefront} setStorefront={props.setStorefront}
              AddAlert={props.AddAlert} setStorefrontOptions={props.setStorefrontOptions}
              storefrontOptions={props.storefrontOptions} currentStore={props.currentStore}
       />
       }
-      { props.step == 2 &&
+      { props.step == 1 &&
       <Step2 step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}
              storefront={props.storefront} setStorefront={props.setStorefront}
              AddAlert={props.AddAlert} currentStore={props.currentStore}
       />
       }
-      { props.step == 3 &&
+      { props.step == 2 &&
       <Step3 step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}
              storefront={props.storefront} setStorefront={props.setStorefront}
              AddAlert={props.AddAlert}
       />
       }
-      {props.step == 4 &&
+      {props.step == 3 &&
       <Step4 step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}
              storefront={props.storefront} setStorefront={props.setStorefront}
              AddAlert={props.AddAlert}
       />
       }
-      {props.step == 5 &&
+      {props.step == 4 &&
       <Step5 step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}
              storefront={props.storefront} setStorefront={props.setStorefront}
              AddAlert={props.AddAlert}
       />
       }
 
-      { props.step == 6 &&
+      { props.step == 5 &&
       <Step6 step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}
              storefront={props.storefront} setStorefront={props.setStorefront}
              AddAlert={props.AddAlert}
       />
       }
 
-
-      { props.step == 7 &&
+      { props.step == 6 &&
       <Step7 step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}
              storefront={props.storefront} setStorefront={props.setStorefront}
              AddAlert={props.AddAlert}
       />
       }
-    </div>
+    </>
   );
 }

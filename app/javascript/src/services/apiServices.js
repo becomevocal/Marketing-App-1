@@ -39,4 +39,12 @@ export const ApiService = {
       params,
     });
   },
+
+  goolgeMerchantIds(token) {
+    return axios({
+      method: 'get',
+      url: 'https://shoppingcontent.googleapis.com/content/v2.1/accounts/authinfo',
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  },
 };

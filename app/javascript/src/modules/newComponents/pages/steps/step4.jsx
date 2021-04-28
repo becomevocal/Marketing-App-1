@@ -10,10 +10,18 @@ import { CheckCircleIcon, WarningIcon } from '@bigcommerce/big-design-icons';
 import {ApiService} from "../../../../services/apiServices";
 import { GoogleLogin } from 'react-google-login';
 import GoogleButton from 'react-google-button'
+const axios = require('axios')
 
 
 export default function Step4(props) {
   const handleChange = (val) => props.setStorefront(val);
+
+  function responseGoogle(response) {
+    ApiService.goolgeMerchantIds(response.getAuthResponse().access_token)
+      .then(function (response) {
+      })
+      .catch(function (error) {
+      })
   const responseGoogle = (response) => {
     debugger;
     props.setStep(4);
@@ -36,7 +44,7 @@ export default function Step4(props) {
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
           cookiePolicy={'single_host_origin'}
-          scope="profile email https://www.googleapis.com/auth/content"
+          scope={"profile email https://www.googleapis.com/auth/content"}
         />
 
       </div>

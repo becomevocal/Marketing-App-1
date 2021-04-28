@@ -12,6 +12,7 @@ import {
 } from "@bigcommerce/big-design";
 
 export default function Step1(props) {
+
   const options = props.storefrontOptions.map((storeOption) => ({ value: storeOption.name,  content: storeOption.name }))
 
   const handleChange = (val) => {

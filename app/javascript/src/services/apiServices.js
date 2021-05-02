@@ -47,4 +47,12 @@ export const ApiService = {
       headers: { Authorization: `Bearer ${token}` }
     });
   },
+
+  addProductsToGoogleFeedCreating(params) {
+    return axios({
+      method: 'get',
+      url: '/api/add-products-to-google',
+      params,
+    });
+  },
 };

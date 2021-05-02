@@ -4,29 +4,37 @@ import {
   Input,
   Link,
   H2,
-  Button, ProgressCircle
+  Small,
+  Text,
+  Form,
+  FormGroup,
+  Select
 } from "@bigcommerce/big-design";
-import { CheckCircleIcon, WarningIcon } from '@bigcommerce/big-design-icons';
-import {ApiService} from "../../../../services/apiServices";
 
 export default function Step5(props) {
-  useEffect(() => {
-    setTimeout(function() {
-      props.setStep(5);
-    }, 5000);
-  })
+
+  const options = props.merchantIds.map((merchantId) => ({ value: merchantId.merchantId,  content: merchantId.merchantId }))
+
+  const handleChange = (val) => {
+    props.AddAlert('Success', 'MerchantId Selected Successfully', 'success')
+    props.setSelectedMerchantId(val);
+    props.setStep(5);
+  }
+
   return (
-    <Panel
-    >
-      <div style={{textAlign: 'left'}}>
-        <H2>
-        {process.env.REACT_APP_CHANNEL_PLATFORM_NAME} account
-        </H2>
-        <h4 style={{color: 'gray', marginTop: '-10px'}}>
-          Connect your {process.env.REACT_APP_CHANNEL_PLATFORM_NAME} account with BigCommerce to complete setting up this channel.
-        </h4>
-        <ProgressCircle size="small" />
-      </div>
+    <Panel header="Storefront">
+      <FormGroup>
+        <Select
+          label="Select Storefront to sync with"
+          description="Products from this storefront will be used in the channel"
+          onOptionChange={handleChange}
+          options={options}
+          value={props.selectedMerchantId}
+          placeholder="Select Storefront"
+          maxHeight={350}
+          required
+        />
+      </FormGroup>
     </Panel>
   );
 }

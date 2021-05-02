@@ -5,18 +5,18 @@ class Api::QueriesController < ApplicationController
   def channels_details
     channels = HTTParty.get(
       "https://api.bigcommerce.com/stores/#{@store.store_hash}/v3/channels", headers: {
-        "X-Auth-Token": @store.access_token,
+      "X-Auth-Token": @store.access_token,
       "Content-Type" => "application/json"
-      })
+    })
     render json: {store: channels}
   end
 
   def channel_info
     channel_currency = HTTParty.get(
       "https://api.bigcommerce.com/stores/#{@store.store_hash}/v3/channels/#{params[:channel_id]}/currency-assignments", headers: {
-        "X-Auth-Token": @store.access_token,
+      "X-Auth-Token": @store.access_token,
       "Content-Type" => "application/json"
-      })
+    })
     render json: {channel_currency: channel_currency}
   end
 
@@ -58,9 +58,44 @@ class Api::QueriesController < ApplicationController
     )
   end
 
+  def add_products_to_google
+    google_feed = HTTParty.post(
+      "https://920cf224-e7c2-462e-bd9a-07e979806842.trayapp.io/#{@store.store_hash}",
+      headers: {
+        "X-Auth-Client": 'rodw3fqzuh8q7pvvpr5n1b4owd8tvz',
+        "X-Auth-Token": @store.access_token,
+        "X-Google-Token": params[:google_auth_token],
+        "X-Google-Merchant-ID": params[:merchant_id],
+        "X-Google-Merchant-ID": params[:merchant_id],
+        "X-Storefront-Channel-ID": params[:channel_id],
+        "Content-Type" => "application/json"
+      }
+    )
+
+    render json: {response: google_feed}
+  end
+
   private
 
   def set_store
     @store = Store.find(params[:store_id])
   end
 end
+
+
+
+# channels = HTTParty.post(
+#   "https://api.bigcommerce.com/stores/#{@store.store_hash}/v3/channels", headers: {
+#   "X-Auth-Token": @store.access_token,
+#   "Content-Type" => "application/json"
+# },
+#   body: {
+#     "external_id": "string",
+#     "is_listable_from_ui": true,
+#     "is_visible": true,
+#     "name": "Test One",
+#     "status": "active",
+#     "type": "marketing",
+#     "platform": "google_shopping"
+#   }.to_json,
+#   )

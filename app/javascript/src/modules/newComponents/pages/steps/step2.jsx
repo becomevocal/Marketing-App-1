@@ -32,6 +32,9 @@ export default function Step2(props) {
             </Text>
             <Small>
               {props.storefront.name} supports only payments in USD
+              {console.log('lllllllllllllllllllllll')}
+              {console.log(props.storefront)}
+              {console.log('lllllllllllllllllllllll')}
             </Small>
           </FlexItem>
         </Flex>

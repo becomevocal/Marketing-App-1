@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     post 'update_store_property_id', to: 'queries#update_store_property_id'
 
     get 'add_script', to: 'queries#add_script'
+    get 'add-products-to-google', to: 'queries#add_products_to_google'
   end
 
   root to: 'welcome#home'

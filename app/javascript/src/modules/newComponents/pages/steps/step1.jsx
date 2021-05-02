@@ -13,7 +13,7 @@ import {
 
 export default function Step1(props) {
 
-  const options = props.storefrontOptions.map((storeOption) => ({ value: storeOption.name,  content: storeOption.name }))
+  const options = props.storefrontOptions.map((storeOption) => ({ value: storeOption.id,  content: storeOption.name }))
 
   const handleChange = (val) => {
     props.AddAlert('Success', 'Store Selected Successfully', 'success')

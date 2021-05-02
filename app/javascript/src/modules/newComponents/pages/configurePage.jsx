@@ -12,7 +12,10 @@ export default function configurePage(props) {
   const steps = ['Storefront Selection', 'Requirements', 'Connection'];
   const [currentStep, setCurrentStep] = useState(0);
   const [storefront, setStorefront] = useState('');
+  const [merchantIds, setMerchantIds] = useState([]);
+  const [selectedMerchantId, setSelectedMerchantId] = useState('');
   const [storeInfo, setStoreInfo] = useState({});
+  const [googleAccessToken, setGoogleAccessToken] = useState('');
   const [storefrontOptions, setStorefrontOptions] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -93,6 +96,12 @@ export default function configurePage(props) {
                 storefrontOptions={storefrontOptions}
                 setStorefrontOptions={setStorefrontOptions}
                 currentStore={props.currentStore}
+                merchantIds={merchantIds}
+                setMerchantIds={setMerchantIds}
+                selectedMerchantId={selectedMerchantId}
+                setSelectedMerchantId={setSelectedMerchantId}
+                googleAccessToken={googleAccessToken}
+                setGoogleAccessToken={setGoogleAccessToken}
               />
             </Form>
           </Box>

@@ -40,7 +40,7 @@ export const ApiService = {
     });
   },
 
-  goolgeMerchantIds(token) {
+  googleMerchantIds(token) {
     return axios({
       method: 'get',
       url: 'https://shoppingcontent.googleapis.com/content/v2.1/accounts/authinfo',
@@ -48,10 +48,18 @@ export const ApiService = {
     });
   },
 
-  addProductsToGoogleFeedCreating(params) {
+  startShoppingFeedSync(params) {
     return axios({
       method: 'get',
       url: '/api/add-products-to-google',
+      params,
+    });
+  },
+
+  checkShoppingFeedSync(params) {
+    return axios({
+      method: 'get',
+      url: '/api/get-google-sync-status',
       params,
     });
   },

@@ -18,7 +18,7 @@ export default function Step4(props) {
 
   function responseGoogle(response) {
     props.setGoogleAccessToken(response.getAuthResponse().access_token)
-    ApiService.goolgeMerchantIds(response.getAuthResponse().access_token)
+    ApiService.googleMerchantIds(response.getAuthResponse().access_token)
       .then(function (response) {
         props.setMerchantIds(response.data.accountIdentifiers)
         props.setStep(4);
@@ -36,7 +36,7 @@ export default function Step4(props) {
           </H2>
 
           <GoogleLogin
-            clientId="1009593719081-a490f6nrlisnommhvuin1vj4o4o9oteb.apps.googleusercontent.com"
+            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
             render={renderProps => (
               <GoogleButton onClick={renderProps.onClick} disabled={renderProps.disabled}>Sign in with Google</GoogleButton>
             )}

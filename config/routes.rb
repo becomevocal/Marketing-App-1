@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
     get 'add_script', to: 'queries#add_script'
     get 'add-products-to-google', to: 'queries#add_products_to_google'
+    get 'get-google-sync-status', to: 'queries#fetch_google_feed_sync_status'
   end
 
   root to: 'welcome#home'

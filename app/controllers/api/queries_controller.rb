@@ -72,7 +72,24 @@ class Api::QueriesController < ApplicationController
       }
     )
 
-    render json: {response: google_feed}
+    render json: google_feed
+  end
+
+  def fetch_google_feed_sync_status
+    google_feed = HTTParty.get(
+      "https://920cf224-e7c2-462e-bd9a-07e979806842.trayapp.io/#{@store.store_hash}",
+      headers: {
+        "X-Auth-Client": 'rodw3fqzuh8q7pvvpr5n1b4owd8tvz',
+        "X-Auth-Token": @store.access_token,
+        "X-Google-Token": params[:google_auth_token],
+        "X-Google-Merchant-ID": params[:merchant_id],
+        "X-Google-Merchant-ID": params[:merchant_id],
+        "X-Storefront-Channel-ID": params[:channel_id],
+        "Content-Type" => "application/json"
+      }
+    )
+
+    render json: google_feed
   end
 
   private

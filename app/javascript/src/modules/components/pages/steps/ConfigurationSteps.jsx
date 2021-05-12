@@ -1,37 +1,88 @@
-import React, {useContext, useState} from "react";
-
-import Step1 from "./step1";
-import Step2 from "./step2";
-import Step3 from "./step3";
-import Step4 from "./step4";
+import React from "react";
+import StorefrontSelection from "./StorefrontSelection";
+import StorefrontRequirements from "./StorefrontRequirements";
+import ChannelAuthentication from "./ChannelAuthentication";
+import MerchantIdSelection from "./MerchantIdSelection";
+import AddProducts from "./AddProducts";
+import AnalyticsTags from "./AnalyticsTags";
+import ChannelAccount from "./ChannelAccount";
+import ActivateChannel from "./ActivateChannel";
 
 export default function ConfigurationSteps(props) {
-  const [ projectId, setProjectId ] = useState('');
-  const [ dataSetId, setDataSetId ] = useState('');
 
   return (
-    <div style={{width: '60%', marginTop: '50px', marginBottom: '100px'}}>
+    <>
+      { props.step == 0 &&
+      <StorefrontSelection step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}
+             storefront={props.storefront} setStorefront={props.setStorefront}
+             AddAlert={props.AddAlert} setStorefrontOptions={props.setStorefrontOptions}
+             storefrontOptions={props.storefrontOptions}
+      />
+      }
       { props.step == 1 &&
-      <Step1 step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}
-             projectId={projectId} setProjectId={setProjectId} dataSetId={dataSetId}
-             setDataSetId={setDataSetId} currentProfitName={props.currentProfitName}
+      <StorefrontRequirements step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}
+             storefront={props.storefront} setStorefront={props.setStorefront}
+             AddAlert={props.AddAlert}
       />
       }
       { props.step == 2 &&
-      <Step2 step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}
-             projectId={projectId} setProjectId={setProjectId} dataSetId={dataSetId}
-             setDataSetId={setDataSetId} currentProfitName={props.currentProfitName}
+      <ChannelAuthentication step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}
+             storefront={props.storefront} setStorefront={props.setStorefront}
+             AddAlert={props.AddAlert} googleAccessToken={props.googleAccessToken}
+             setGoogleAccessToken={props.setGoogleAccessToken}
+             googleProfile={props.googleProfile} setGoogleProfile={props.setGoogleProfile}
       />
       }
       { props.step == 3 &&
-      <Step3 step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}/>
+      <ChannelAccount step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}
+             storefront={props.storefront} setStorefront={props.setStorefront}
+             AddAlert={props.AddAlert} merchantIds={props.merchantIds}
+             setMerchantIds={props.setMerchantIds} selectedMerchantId={props.selectedMerchantId}
+             setSelectedMerchantId={props.setSelectedMerchantId} googleAccessToken={props.googleAccessToken}
+             setGoogleAccessToken={props.setGoogleAccessToken}
+             googleProfile={props.googleProfile} setGoogleProfile={props.setGoogleProfile}
+      />
       }
-      { props.step == 4 &&
-      <Step4 step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}/>
+      {props.step == 4 &&
+      <MerchantIdSelection step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}
+             storefront={props.storefront} setStorefront={props.setStorefront}
+             AddAlert={props.AddAlert} merchantIds={props.merchantIds}
+             setMerchantIds={props.setMerchantIds} selectedMerchantId={props.selectedMerchantId}
+             setSelectedMerchantId={props.setSelectedMerchantId} googleAccessToken={props.googleAccessToken}
+             setGoogleAccessToken={props.setGoogleAccessToken}
+             googleProfile={props.googleProfile} setGoogleProfile={props.setGoogleProfile}
+      />
       }
-      { props.step == 5 &&
-      <Step4 step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}/>
+      {props.step == 5 &&
+      <AddProducts step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}
+             storefront={props.storefront} setStorefront={props.setStorefront}
+             AddAlert={props.AddAlert} merchantIds={props.merchantIds}
+             setMerchantIds={props.setMerchantIds} selectedMerchantId={props.selectedMerchantId}
+             setSelectedMerchantId={props.setSelectedMerchantId} googleAccessToken={props.googleAccessToken}
+             setGoogleAccessToken={props.setGoogleAccessToken}
+             googleProfile={props.googleProfile} setGoogleProfile={props.setGoogleProfile}
+      />
       }
-    </div>
+      {props.step == 6 &&
+      <AnalyticsTags step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}
+             storefront={props.storefront} setStorefront={props.setStorefront}
+             AddAlert={props.AddAlert} merchantIds={props.merchantIds}
+             setMerchantIds={props.setMerchantIds} selectedMerchantId={props.selectedMerchantId}
+             setSelectedMerchantId={props.setSelectedMerchantId}  googleAccessToken={props.googleAccessToken}
+             setGoogleAccessToken={props.setGoogleAccessToken}
+             googleProfile={props.googleProfile} setGoogleProfile={props.setGoogleProfile}
+      />
+      }
+
+      { props.step == 7 &&
+      <ActivateChannel step={props.step} setStep={props.setStep} storeInfo={props.storeInfo}
+             storefront={props.storefront} setStorefront={props.setStorefront}
+             AddAlert={props.AddAlert} merchantIds={props.merchantIds}
+             setMerchantIds={props.setMerchantIds} googleAccessToken={props.googleAccessToken}
+             setGoogleAccessToken={props.setGoogleAccessToken}
+             googleProfile={props.googleProfile} setGoogleProfile={props.setGoogleProfile}
+      />
+      }
+    </>
   );
 }

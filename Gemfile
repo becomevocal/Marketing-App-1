@@ -27,6 +27,7 @@ gem 'bigcommerce', '~> 1.0.0'
 gem 'figaro'
 gem 'pry'
 gem 'httparty'
+gem 'rack-cors'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

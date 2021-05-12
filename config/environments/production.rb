@@ -109,4 +109,11 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+  # Prevent JSON from being escaped, which is required since we POST script tags for storefront analytics (/v3/content/scripts)
+  config.active_support.escape_html_entities_in_json = false
+
+  # Activate cookie session storage
+  config.middleware.use ActionDispatch::Cookies
+  config.middleware.use ActionDispatch::Session::CookieStore, key: '_sample_marketing_app', secure: true, same_site: :none
 end

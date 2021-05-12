@@ -1,25 +1,31 @@
-import React, {useContext, useEffect, useState} from "react";
-import {
-  Panel,
-  Input,
-  Link,
-  H2,
-  Small,
-  Text,
-  Form,
-  FormGroup,
-  Select,
-  Flex,
-  FlexItem
-} from "@bigcommerce/big-design";
+import React, { useEffect } from "react";
+import { Panel, Small, Text, Flex, FlexItem } from "@bigcommerce/big-design";
 import { CheckCircleIcon, WarningIcon } from '@bigcommerce/big-design-icons';
-import {ApiService} from "../../../../services/apiServices";
+import { useLocales } from 'react-localized';
+import { ApiService } from "../../../../services/apiServices";
 
-export default function Step2(props) {
+export default function StorefrontRequirements(props) {
+  const { gettext } = useLocales();
+
+  useEffect(() => {
+    // setLoading(true);
+
+    ApiService.createChannel()
+    .then(function (response) {
+      console.log(response)
+    })
+    .catch(function (error) {
+      console.log(error);
+      props.AddAlert(gettext('Error'), gettext(error.response.data.error_message), 'error')
+      // props.AddAlert(gettext('Error'), gettext('Unable to create %s channel: %s', process.env.REACT_APP_CHANNEL_PLATFORM_NAME, error), 'error')
+      // setLoading(false);
+    })
+  }, [])
+
   return (
-    <Panel header={`${process.env.REACT_APP_CHANNEL_PLATFORM_NAME} requirements`}>
+    <Panel header={gettext('%s requirements', process.env.REACT_APP_CHANNEL_PLATFORM_NAME)}>
         <Text>
-          Complete all requirements to connect to {props.storefront.name}
+          {gettext('Complete all requirements to connect to %s', props.storefront.name)}
         </Text>
 
         <Flex borderBottom="box" paddingTop="small" paddingBottom="small">
@@ -28,13 +34,10 @@ export default function Step2(props) {
           </FlexItem>
           <FlexItem flexGrow={1}>
             <Text bold as="span">
-              Store default currency is set to USD
+              {gettext('Store default currency is set to USD')}
             </Text>
             <Small>
-              {props.storefront.name} supports only payments in USD
-              {console.log('lllllllllllllllllllllll')}
-              {console.log(props.storefront)}
-              {console.log('lllllllllllllllllllllll')}
+              {gettext('Storefront has set USD as default currency')}
             </Small>
           </FlexItem>
         </Flex>

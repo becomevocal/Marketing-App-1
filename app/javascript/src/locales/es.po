@@ -1,0 +1,147 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
+
+# Page title
+
+msgid "Set up %s"
+msgstr "Configurar %s"
+
+# Steps
+
+msgid "Storefront Selection"
+msgstr "Selección de escaparate"
+
+msgid "Requirements"
+msgstr "Requisitos"
+
+msgid "Connection"
+msgstr "Conexión"
+
+# Alert titles
+
+msgid "Success"
+msgstr "Éxito"
+
+msgid "Error"
+msgstr "Error"
+
+# Alert messages
+
+msgid "Please select a store first."
+msgstr "Primero seleccione una tienda."
+
+msgid "Unable to fetch data. Please try again."
+msgstr "No se pudieron recuperar los datos. Inténtalo de nuevo."
+
+msgid "Unable to authenticate with %s."
+msgstr "No se puede autenticar con %s."
+
+msgid "Unable to fetch %s."
+msgstr "No se pudo recuperar %s."
+
+msgid "An error occurred while starting sync: %s"
+msgstr "Se produjo un error al iniciar la sincronización: %s"
+
+msgid "Catalog sync has started."
+msgstr "Se inició la sincronización del catálogo."
+
+msgid "An error occurred while checking sync: %s"
+msgstr "Se produjo un error al verificar la sincronización: %s"
+
+# Button text
+
+msgid "Continue"
+msgstr "Continuar"
+
+msgid "Connect with %s"
+msgstr "Conéctese con %s"
+
+msgid "Switch account"
+msgstr "Cambiar cuenta"
+
+msgid "Add products"
+msgstr "Agregar productos"
+
+msgid "Activate channel"
+msgstr "Activar canal"
+
+# Badge text
+
+msgid "connected"
+msgstr "conectado"
+
+# Page content
+
+msgid "Storefront"
+msgstr "Escaparate"
+
+msgid "Select storefront to sync with"
+msgstr "Seleccione storefront para sincronizar"
+
+msgid "Products from this storefront will be used in the channel"
+msgstr "Los productos de esta tienda se utilizarán en el canal"
+
+msgid "Select Storefront"
+msgstr "Seleccionar escaparate"
+
+msgid "Complete all requirements to connect to %s"
+msgstr "Complete todos los requisitos para conectarse a %s"
+
+msgid "%s requirements"
+msgstr "Requisitos de %s"
+
+msgid "Store default currency is set to USD"
+msgstr "La moneda predeterminada de la tienda está establecida en USD"
+
+msgid "Storefront has set USD as default currency"
+msgstr "Storefront ha establecido USD como moneda predeterminada"
+
+msgid "Connect your %s account with BigCommerce to complete setting up this channel."
+msgstr "Conecte su cuenta de %s con BigCommerce para completar la configuración de este canal."
+
+msgid "%s account"
+msgstr "Cuenta %s"
+
+msgid "Select the account to connect to your storefront"
+msgstr "Seleccione la cuenta para conectarse a su tienda"
+
+msgid "We'll create a shopping feed inside this account"
+msgstr "Crearemos un feed de compras dentro de esta cuenta."
+
+msgid "Select account"
+msgstr "Seleccionar cuenta"
+
+msgid "Get started by adding products"
+msgstr "Comience agregando productos"
+
+msgid "Add products from your BigCommerce catalog to this channel."
+msgstr "Agregue productos de su catálogo de BigCommerce a este canal."
+
+msgid "While the feed is being processed in the background you can leave this screen and come back later when it's complete."
+msgstr "Mientras se procesa el feed en segundo plano, puede salir de esta pantalla y volver más tarde cuando esté completo."
+
+msgid "Fetching %s of %s pages of products from BigCommerce"
+msgstr "Obteniendo %s de %s páginas de productos de BigCommerce"
+
+msgid "Writing %s of %s product variants into a feed"
+msgstr "Escribir %s de %s variantes de producto en un feed"
+
+msgid "Activating %s channel"
+msgstr "Activando el canal de %s"
+
+msgid "Redirecting to Channel Manager"
+msgstr "Redirigiendo a Channel Manager"
+
+msgid "Connecting"
+msgstr "Conectando"
+
+msgid "Unable to create %s channel: %s"
+msgstr "No se pudo crear el canal de %s: %s"
+
+# API errors
+
+msgid "A storefront must be selected before the marketing channel is created."
+msgstr "Se debe seleccionar un escaparate antes de que se cree el canal de marketing."

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # require to remove X-Frame-Options to load Rails app in iframe on Bigcommerce
+  # Required to remove X-Frame-Options to load Rails app in iframe on BigCommerce
   def set_header_for_iframe
     response.headers.delete "X-Frame-Options"
   end

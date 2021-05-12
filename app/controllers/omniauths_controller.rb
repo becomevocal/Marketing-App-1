@@ -33,7 +33,7 @@ class OmniauthsController < ApplicationController
       logo = Bigcommerce::StoreInfo.info(connection: connection)[:logo]
       session[:store_logo] = logo.present? ? logo[:url] : 'assets/default_logo.png'
     end
-    render 'welcome/home', status: 200
+    render 'index/home', status: 200
   end
 
   def uninstall
@@ -61,7 +61,7 @@ class OmniauthsController < ApplicationController
     session[:store_id] = @store.id
     logo = Bigcommerce::StoreInfo.info(connection: connection)[:logo]
     session[:store_logo] = logo.present? ? logo[:url] : 'assets/default_logo.png'
-    render 'welcome/home', status: 200
+    render 'index/home', status: 200
   end
 
   private

@@ -6,16 +6,17 @@ Rails.application.routes.draw do
 
   # APIs
   namespace :api do
-    post 'payment', to: 'queries#payment'
     get 'channels_details', to: 'queries#channels_details'
-    get 'channel_info', to: 'queries#channel_info'
-    post 'update_store_data_set_id', to: 'queries#update_store_data_set_id'
-    post 'update_store_property_id', to: 'queries#update_store_property_id'
+    get 'channel_currencies', to: 'queries#channel_currencies'
+    post 'create_channel', to: 'queries#create_channel'
+    get 'create_channel', to: 'queries#create_channel'
 
     get 'add_script', to: 'queries#add_script'
     get 'add-products-to-google', to: 'queries#add_products_to_google'
     get 'get-google-sync-status', to: 'queries#fetch_google_feed_sync_status'
+    post 'exchange_google_auth_code', to: 'queries#exchange_google_auth_code'
+    post 'select_storefront', to: 'queries#select_storefront'
   end
 
-  root to: 'welcome#home'
+  root to: 'index#home'
 end

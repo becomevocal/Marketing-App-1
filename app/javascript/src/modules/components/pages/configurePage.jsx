@@ -1,70 +1,144 @@
-import React, {useState, useEffect} from 'react'
-
-import { H1, H2, Button, Flex, Box, Text} from '@bigcommerce/big-design';
-import { Footer } from "./createSettings/styled";
-import Steps from "./steps";
+import React, { useState, useEffect } from 'react'
+import { H1, Button, Box, Stepper, Form } from '@bigcommerce/big-design';
 import ConfigurationSteps from "./steps/ConfigurationSteps";
-import { ArrowBackIcon } from '@bigcommerce/big-design-icons';
-import { GoogleLogin } from 'react-google-login';
+import { useLocales } from 'react-localized';
+import { alertsManager } from "../../../app";
+import { ApiService } from '../../../services/apiServices';
+import Loader from "../common/Loader";
+import Footer from "../common/Footer";
 
 export default function configurePage(props) {
-  const [step, setStep] = useState(1);
-
-  const responseGoogle = (response) => {
-    console.log(response);
-  }
+  const { gettext } = useLocales();
+  const steps = [
+    gettext('Storefront Selection'),
+    gettext('Requirements'),
+    gettext('Connection')
+  ];
+  const activateChannelStep = 6;
+  const [currentStep, setCurrentStep] = useState(0);
+  const [storefront, setStorefront] = useState({
+    channel_id: null,
+    name: null
+  });
+  const [merchantIds, setMerchantIds] = useState([]);
+  const [selectedMerchantId, setSelectedMerchantId] = useState('');
+  const [storeInfo, setStoreInfo] = useState({});
+  const [googleAccessToken, setGoogleAccessToken] = useState('');
+  const [googleProfile, setGoogleProfile] = useState({});
+  const [storefrontOptions, setStorefrontOptions] = useState({});
+  const [loadingInitialData, setLoadingInitialData] = useState(true);
 
   function increaseStep() {
-    if (step < 5) {
-      setStep(step + 1);
+    if (currentStep < 9) {
+      setCurrentStep(currentStep + 1);
     }
   }
 
+  function AddAlert(title, details, type) {
+    const alert = {
+      header: title,
+      messages: [
+        {
+          text: details,
+        },
+      ],
+      type: type,
+      onClose: () => null,
+      autoDismiss: true
+    }
+    alertsManager.add(alert);
+  }
+
+
   function decreaseStep() {
-    if (step > 1) setStep(step - 1);
+    if (currentStep > 0) setCurrentStep(currentStep - 1);
+  }
+  useEffect(() =>{
+    if(currentStep > 0 && storefront.channel_id === null){
+      setCurrentStep(0);
+      AddAlert('Error', gettext('Please select a store first.'), 'error')
+    }
+  }, [currentStep])
+
+  useEffect(() =>{
+    ApiService.getChannelsDetails()
+      .then(function (response) {
+        setStorefrontOptions(response.data.store.data);
+        setLoadingInitialData(false);
+      })
+      .catch(function (error) {
+        AddAlert('Error', gettext('Unable to fetch data. Please try again.'), 'error')
+      })
+  }, [])
+
+  useEffect(() => {
+    console.log('storefront channel_id changed', storefront);
+    if (!storefront.channel_id) {
+      return
+    }
+
+    ApiService.selectStorefrontChannel(storefront.channel_id)
+      .catch(function (error) {
+        AddAlert('Error', gettext('Unable to select storefront. Please try again.'), 'error')
+      })
+  }, [storefront.channel_id])
+
+  const nextButtonText = () => {
+    return (currentStep < activateChannelStep) ? 
+      gettext('Continue') :
+      gettext('Activate channel')
   }
 
   return (
-    <Flex flexDirection="column" alignItems="center" marginTop="medium">
-      <div style={{textAlign: 'left', width: '45%', margin: '10px'}}>
-        <Text>
-          <ArrowBackIcon size='small'/> My reports
-        </Text>
-      </div>
+    <>
+      {loadingInitialData &&
+        <Loader/>
+      }
+      {!loadingInitialData &&
+        <>
+          <Box>
+            
+            { currentStep < 8 &&
+            <>
+              <H1>
+                {gettext('Set up %s', process.env.REACT_APP_CHANNEL_PLATFORM_NAME)}
+              </H1>
+              <Stepper steps={steps} currentStep={currentStep} />
+            </>
+            }
+            
+            <Form>  
+              <ConfigurationSteps
+                step={currentStep}
+                setStep={setCurrentStep}
+                storeInfo={props.storeInfo}
+                storefront={storefront}
+                setStorefront={setStorefront}
+                AddAlert={AddAlert}
+                storefrontOptions={storefrontOptions}
+                setStorefrontOptions={setStorefrontOptions}
+                merchantIds={merchantIds}
+                setMerchantIds={setMerchantIds}
+                selectedMerchantId={selectedMerchantId}
+                setSelectedMerchantId={setSelectedMerchantId}
+                googleAccessToken={googleAccessToken}
+                setGoogleAccessToken={setGoogleAccessToken}
+                googleProfile={googleProfile}
+                setGoogleProfile={setGoogleProfile}
+              />
+            </Form>
+          </Box>
+        
 
-      <H2>Configure to Channel {props.currentProfitName}</H2>
-
-      <GoogleLogin
-        clientId="1090849701177-kq5gufe0g2vssa71lu9jkg1tid11k6ib.apps.googleusercontent.com"
-        render={renderProps => (
-          <button onClick={renderProps.onClick} disabled={renderProps.disabled}>This is my custom Google button</button>
-        )}
-        buttonText="Login"
-        onSuccess={responseGoogle}
-        onFailure={responseGoogle}
-        cookiePolicy={'single_host_origin'}
-      />
-
-      <Footer>
-        <Box>
-          <Button variant="subtle" onClick={() => props.setCurrentPage(1)}>
-            Cancel
-          </Button>
-
-          <Button disabled={step === 1} variant="subtle" onClick={decreaseStep}>
-            Back
-          </Button>
-        </Box>
-        <Box>
-          <Button variant="primary" onClick={increaseStep}>
-            Continue
-          </Button>
-        </Box> <Box>
-          <Button variant="primary" onClick={increaseStep}>
-            Continue
-          </Button>
-        </Box>
-      </Footer>
-    </Flex>
+          <Footer>
+            <Box>
+              <Button variant="primary" onClick={increaseStep}>
+                {nextButtonText()}
+              </Button>
+            </Box>
+          </Footer>
+        </>
+      }
+    </>
   )
 }

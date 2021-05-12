@@ -60,4 +60,11 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.hosts << ENV['APP_URL']
+
+  # Prevent JSON from being escaped, which is required since we POST script tags for storefront analytics (/v3/content/scripts)
+  config.active_support.escape_html_entities_in_json = false
+
+  # Activate cookie session storage
+  config.middleware.use ActionDispatch::Cookies
+  config.middleware.use ActionDispatch::Session::CookieStore, key: '_sample_marketing_app', secure: true, same_site: :none
 end

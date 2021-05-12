@@ -1,8 +1,14 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { AlertsManager, createAlertsManager, GlobalStyles } from '@bigcommerce/big-design';
 import { theme } from '@bigcommerce/big-design-theme';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import Main from './modules/main'
+import LocaleSwitcher from './modules/components/common/LocaleSwitcher';
+import { LocalizedProvider } from 'react-localized';
+import { getBrowserLocales } from './services/localeServices';
+import Main from './modules/main';
+import es from './locales/es';
+
+const additionalLocales = { es };
 
 const AppGlobalStyles = createGlobalStyle`
   body {
@@ -14,21 +20,33 @@ const AppGlobalStyles = createGlobalStyle`
 `;
 
 export default function App() {
-  const [currentStore, setCurrentStore] = useState('');
-  useEffect(() =>{
-    setCurrentStore(localStorage.getItem('store_id'));
+  const defaultLocale = () => getBrowserLocales({languageCodeOnly: true})[0];
+  const [locale, setLocale] = useState(defaultLocale)
+
+  const toggleLocale = useCallback(() => {
+    setLocale((prev) => (prev === 'en' ? 'es' : 'en'))
   }, [])
+
   return(
     <ThemeProvider theme={theme}>
       <AppGlobalStyles />
       <GlobalStyles />
-      {currentStore &&
-        <>
-          <AlertsManager manager={alertsManager}/>
-          <Main currentStore={currentStore}/>
-        </>
-      }
+      {/* This LocaleSwitcher component is helpful for debugging translations but shouldn't be used in production */}
+      {/* <LocaleSwitcher toggleFunction={toggleLocale} /> */}
+      <LocalizedProvider locales={additionalLocales} selected={locale}>
+        {({ localeReady }) => (
+          localeReady
+            ? (
+              <>
+                <AlertsManager manager={alertsManager}/>
+                <Main />
+              </>
+            )
+            : ''
+        )}
+      </LocalizedProvider>
     </ThemeProvider>
   )
 }
+
 export const alertsManager = createAlertsManager();

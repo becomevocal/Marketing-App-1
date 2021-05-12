@@ -10,19 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_07_102113) do
+ActiveRecord::Schema.define(version: 2021_05_12_131500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "channels", force: :cascade do |t|
     t.bigint "store_id"
-    t.string "bc_id"
+    t.integer "marketing_channel_id"
     t.string "name"
     t.string "tag_id"
     t.boolean "tag_installed", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "storefront_channel_id"
     t.index ["store_id"], name: "index_channels_on_store_id"
   end
 
